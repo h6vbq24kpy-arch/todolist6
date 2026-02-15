@@ -61,12 +61,19 @@
     });
 
     //編集した内容を保存
-       editInput.addEventListener("blur", () => { // ← 入力欄からフォーカスが外れたら(確定とみなす)
+      editInput.addEventListener("blur", (event) => { // ← 入力欄からフォーカスが外れたら(確定とみなす)
         span.textContent = editInput.value; // ← 表示用テキストを入力内容に更新
         editInput.style.display = "none"; // ← 編集欄は再び隠す
         span.style.display = "inline"; // ← 表示用テキストを再表示
-        saveTasks(); // ← 保存内容をlocalStorageへ反映
-    });
+        saveTasks(); // ← 保存内容をlocalStorageへ反映 
+      });
+
+      editInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          editInput.blur();
+        }
+      });
   }; // ← addTask関数の終わり
 
     const deleteBtn = document.getElementById("deleteBtn"); // ← 「削除」ボタン要素を取得
